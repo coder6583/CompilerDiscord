@@ -1,7 +1,7 @@
 "use strict";
 var Discord = require('discord.js');
 var dotenv = require('dotenv');
-var _a = require('./config.json'), prefix = _a.prefix, token = _a.token;
+var _a = require('./config.json'), prefix = _a.prefix, command = _a.command;
 var client = new Discord.Client();
 dotenv.config();
 client.on('ready', function () {
