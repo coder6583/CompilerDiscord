@@ -62,6 +62,7 @@ client.on('message', (msg: any) => {
           msg.channel.send('Command Successful');
       });
     }
+    
     else if(command == 'restart')
     {
       exec('sudo systemctl restart compilerserver', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
