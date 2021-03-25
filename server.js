@@ -80,12 +80,12 @@ client.on('message', function (msg) {
             });
         }
         else if (command == 'update') {
-            exec('git --git-dir /home/pi/Compiler/.git stash', function (err, stdout, stderr) {
+            exec('git -C /home/pi/Compiler stash', function (err, stdout, stderr) {
                 if (err)
                     msg.channel.send('Command Failed');
                 else
                     msg.channel.send('Command Successful');
-                exec('git --git-dir /home/pi/Compiler/.git pull', function (err, stdout, stderr) {
+                exec('git -C /home/pi/Compiler pull ', function (err, stdout, stderr) {
                     msg.channel.send('標準出力');
                     if (stdout)
                         msg.channel.send(stdout);
