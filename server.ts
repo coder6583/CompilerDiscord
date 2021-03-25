@@ -62,7 +62,7 @@ client.on('message', (msg: any) => {
           msg.channel.send('Command Successful');
       });
     }
-    
+
     else if(command == 'restart')
     {
       exec('sudo systemctl restart compilerserver', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
@@ -81,6 +81,11 @@ client.on('message', (msg: any) => {
         if(err) msg.channel.send('Could not empty log file');
         else msg.channel.send('Restart complete');
       })
+    }
+
+    else if(command == 'update')
+    {
+      exec('cd /home/pi/Compiler & git pull', )
     }
     // let words = command.split(' ');
     // if(words[0])
@@ -118,7 +123,7 @@ fs.watchFile(__dirname + '/log', (curr: any, prev: any) =>{
       let change = data.slice(fileSize);
       console.log(change.toString());
       client.channels.fetch('824546860655837194').then((channel: any) => {
-        (<TextChannel> channel).send(change.toString());
+        (<TextChannel> channel).send('```' + change.toString()+ '```');
       });
       fileSize = data.length;
     }
