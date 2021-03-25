@@ -54,7 +54,7 @@ fs.watchFile(__dirname + '/log', function (curr, prev) {
     fs.readFile(__dirname + '/log', function (err, data) {
         var change = data.slice(prev.size + 1);
         client.channels.fetch('824546860655837194').then(function (channel) {
-            channel.send('test');
+            channel.send(change);
         });
     });
 });
