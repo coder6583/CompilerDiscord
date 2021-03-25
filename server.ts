@@ -16,15 +16,21 @@ client.on('message', (msg: any) => {
 //   }
   let line = msg.content;
   // msg.channel.send(line);
-  if(line[0] == '#')
+  if(line[0] == '!')
+  {
+    
+  }
+  else
   {
     let command = line.slice(1);
     msg.channel.send(command);
     exec(command, (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
       msg.channel.send('標準出力');
-      msg.channel.send(stdout);
+      if(stdout)
+        msg.channel.send(stdout);
       msg.channel.send('標準エラー');
-      msg.channel.send(stderr);
+      if(stderr)
+        msg.channel.send(stderr);
       if(err)
         msg.channel.send('Command Failed');
       else
