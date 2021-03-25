@@ -85,7 +85,18 @@ client.on('message', (msg: any) => {
 
     else if(command == 'update')
     {
-      exec('cd /home/pi/Compiler & git pull', )
+      exec('cd /home/pi/Compiler & git pull', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
+        msg.channel.send('標準出力');
+        if(stdout)
+          msg.channel.send(stdout);
+        msg.channel.send('標準エラー');
+        if(stderr)
+          msg.channel.send(stderr);
+        if(err)
+          msg.channel.send('Command Failed');
+        else
+          msg.channel.send('Command Successful');
+      });
     }
     // let words = command.split(' ');
     // if(words[0])
