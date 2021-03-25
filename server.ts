@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { Message, TextChannel } from "discord.js";
 
 const Discord = require('discord.js');
 const dotenv = require('dotenv');
@@ -61,7 +61,9 @@ fs.watchFile(__dirname + '/log', (curr: any, prev: any) =>{
   console.log('file changed');
   fs.readFile(__dirname + '/log', (err: Error, data: string) =>{
     let change = data.slice(prev.size + 1);
-    client.channels.get('server-console').send(change);
+    client.channels.fetch('server-console').then((channel: any) => {
+      (<TextChannel> channel).send('test');
+    });
   })
 })
 
