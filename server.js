@@ -16,7 +16,7 @@ client.on('message', function (msg) {
     if (line[0] == "" + cmdPrefix) {
         msg.channel.send('command');
         var command = line.splice(1);
-        console.log(command);
+        msg.channel.send(command);
     }
 });
 client.login(process.env.TOKEN);

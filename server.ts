@@ -19,7 +19,7 @@ client.on('message', msg => {
   {
     msg.channel.send('command');
     let command = line.splice(1);
-    console.log(command);
+    msg.channel.send(command);
   }
 });
 
