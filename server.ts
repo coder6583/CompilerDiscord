@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const dotenv = require('dotenv');
-const {prefix, command} = require('./config.json');
+const {prefix, cmdPrefix} = require('./config.json');
 
 const client = new Discord.Client();
 dotenv.config();
@@ -15,9 +15,11 @@ client.on('message', msg => {
 //   }
   let line = msg.content;
   // msg.channel.send(line);
-  if(line[0] == '#')
+  if(line[0] == `${cmdPrefix}`)
   {
-    msg.channel.send('yea');
+    msg.channel.send('command');
+    let command = line.splice(1);
+    console.log(command);
   }
 });
 

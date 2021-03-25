@@ -1,7 +1,7 @@
 "use strict";
 var Discord = require('discord.js');
 var dotenv = require('dotenv');
-var _a = require('./config.json'), prefix = _a.prefix, command = _a.command;
+var _a = require('./config.json'), prefix = _a.prefix, cmdPrefix = _a.cmdPrefix;
 var client = new Discord.Client();
 dotenv.config();
 client.on('ready', function () {
@@ -13,8 +13,10 @@ client.on('message', function (msg) {
     //   }
     var line = msg.content;
     // msg.channel.send(line);
-    if (line[0] == '#') {
-        msg.channel.send('yea');
+    if (line[0] == "" + cmdPrefix) {
+        msg.channel.send('command');
+        var command = line.splice(1);
+        console.log(command);
     }
 });
 client.login(process.env.TOKEN);
