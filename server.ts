@@ -95,12 +95,6 @@ client.on('message', (msg: any) => {
           if(stderr)
             msg.channel.send(stderr);
         exec('chmod +x /home/pi/Compiler/server/nodejs/https_server.js', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
-          msg.channel.send('標準出力');
-          if(stdout)
-            msg.channel.send(stdout);
-          msg.channel.send('標準エラー');
-          if(stderr)
-            msg.channel.send(stderr);
           if(err)
             msg.channel.send('Command Failed');
           else
