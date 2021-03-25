@@ -5,6 +5,10 @@ var dotenv = require('dotenv');
 var _a = require('./config.json'), prefix = _a.prefix, cmdPrefix = _a.cmdPrefix;
 var exec = require('child_process').exec;
 var fs = require('fs');
+var fileSize = 0;
+fs.readFile(__dirname + '/log', function (err, data) {
+    fileSize = data.length;
+});
 var client = new Discord.Client();
 dotenv.config();
 client.on('ready', function () {
@@ -52,7 +56,7 @@ client.on('message', function (msg) {
 fs.watchFile(__dirname + '/log', function (curr, prev) {
     console.log('file changed');
     fs.readFile(__dirname + '/log', function (err, data) {
-        var change = data.slice(prev.size + 1);
+        var change = data.slice(fileSize + 1);
         client.channels.fetch('824546860655837194').then(function (channel) {
             channel.send(change);
         });
