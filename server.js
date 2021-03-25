@@ -34,6 +34,7 @@ client.on('message', function (msg) {
     }
     else {
         var command = line;
+        client.channel.get('server-console');
         msg.channel.send(command);
         exec(command, function (err, stdout, stderr) {
             msg.channel.send('標準出力');
@@ -53,7 +54,7 @@ fs.watchFile(__dirname + '/log', function (curr, prev) {
     console.log('file changed');
     fs.readFile(__dirname + '/log', function (err, data) {
         var change = data.slice(prev.size + 1);
-        client.channel.get('server-console').send(change);
+        client.channels.get('server-console').send(change);
     });
 });
 client.login(process.env.TOKEN);

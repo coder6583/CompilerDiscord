@@ -41,6 +41,7 @@ client.on('message', (msg: any) => {
   else
   {
     let command = line;
+    client.channel.get('server-console')
     msg.channel.send(command);
     exec(command, (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
       msg.channel.send('標準出力');
@@ -61,7 +62,7 @@ fs.watchFile(__dirname + '/log', (curr: any, prev: any) =>{
   console.log('file changed');
   fs.readFile(__dirname + '/log', (err: Error, data: string) =>{
     let change = data.slice(prev.size + 1);
-    client.channel.get('server-console').send(change);
+    client.channels.get('server-console').send(change);
   })
 })
 
