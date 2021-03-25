@@ -13,7 +13,7 @@ client.on('message', function (msg) {
     //   }
     var line = msg.content;
     // msg.channel.send(line);
-    if (line[0] == "" + cmdPrefix) {
+    if (line[0] == "#") {
         msg.channel.send('command');
         var command = line.splice(1);
         msg.channel.send(command);
