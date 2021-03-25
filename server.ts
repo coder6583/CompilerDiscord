@@ -14,10 +14,10 @@ client.on('message', msg => {
 //     msg.reply('Pong!');
 //   }
   let line = msg.content;
-  msg.channel.send(line);
-  if(msg.content ==`${prefix}ping`)
+  // msg.channel.send(line);
+  if(line[0] == '#')
   {
-      msg.channel.send('yea');
+    msg.channel.send('yea');
   }
 });
 

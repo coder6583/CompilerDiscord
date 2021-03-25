@@ -12,8 +12,8 @@ client.on('message', function (msg) {
     //     msg.reply('Pong!');
     //   }
     var line = msg.content;
-    msg.channel.send(line);
-    if (msg.content == prefix + "ping") {
+    // msg.channel.send(line);
+    if (line[0] == '#') {
         msg.channel.send('yea');
     }
 });
