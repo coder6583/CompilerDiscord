@@ -1,3 +1,5 @@
+import { Message } from "discord.js";
+
 const Discord = require('discord.js');
 const dotenv = require('dotenv');
 const {prefix, cmdPrefix} = require('./config.json');
@@ -16,13 +18,14 @@ client.on('message', (msg: any) => {
 //   }
   let line = msg.content;
   // msg.channel.send(line);
+  if(msg.author.bot) return;
   if(line[0] == '!')
   {
-    
+
   }
   else
   {
-    let command = line.slice(1);
+    let command = line;
     msg.channel.send(command);
     exec(command, (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
       msg.channel.send('標準出力');

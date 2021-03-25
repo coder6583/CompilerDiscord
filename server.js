@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Discord = require('discord.js');
 var dotenv = require('dotenv');
 var _a = require('./config.json'), prefix = _a.prefix, cmdPrefix = _a.cmdPrefix;
@@ -14,10 +15,12 @@ client.on('message', function (msg) {
     //   }
     var line = msg.content;
     // msg.channel.send(line);
+    if (msg.author.bot)
+        return;
     if (line[0] == '!') {
     }
     else {
-        var command = line.slice(1);
+        var command = line;
         msg.channel.send(command);
         exec(command, function (err, stdout, stderr) {
             msg.channel.send('標準出力');
