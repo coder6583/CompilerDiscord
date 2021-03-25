@@ -30,15 +30,56 @@ client.on('message', (msg: any) => {
     let command = line.slice(1);
     if(command == 'start')
     {
-      exec('sudo systemctl start compilerserver');
+      exec('sudo systemctl start compilerserver', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
+        msg.channel.send('標準出力');
+        if(stdout)
+          msg.channel.send(stdout);
+        msg.channel.send('標準エラー');
+        if(stderr)
+          msg.channel.send(stderr);
+        if(err)
+          msg.channel.send('Command Failed');
+        else
+          msg.channel.send('Command Successful');
+      });
+      fs.write(__dirname + '/log', '', (err: Error) => {
+        if(err) msg.channel.send('Could not empty log file');
+        else msg.channel.send('Start process complete');
+      })
     }
     else if(command == 'stop')
     {
-      exec('sudo systemctl stop compilerserver');
+      exec('sudo systemctl stop compilerserver', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
+        msg.channel.send('標準出力');
+        if(stdout)
+          msg.channel.send(stdout);
+        msg.channel.send('標準エラー');
+        if(stderr)
+          msg.channel.send(stderr);
+        if(err)
+          msg.channel.send('Command Failed');
+        else
+          msg.channel.send('Command Successful');
+      });
     }
     else if(command == 'restart')
     {
-      exec('sudo systemctl restart compilerserver');
+      exec('sudo systemctl restart compilerserver', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
+        msg.channel.send('標準出力');
+        if(stdout)
+          msg.channel.send(stdout);
+        msg.channel.send('標準エラー');
+        if(stderr)
+          msg.channel.send(stderr);
+        if(err)
+          msg.channel.send('Command Failed');
+        else
+          msg.channel.send('Command Successful');
+      });
+      fs.write(__dirname + '/log', '', (err: Error) => {
+        if(err) msg.channel.send('Could not empty log file');
+        else msg.channel.send('Restart complete');
+      })
     }
     // let words = command.split(' ');
     // if(words[0])
