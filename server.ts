@@ -58,6 +58,7 @@ client.on('message', (msg: any) => {
 });
 
 fs.watchFile(__dirname + '/log', (curr: any, prev: any) =>{
+  console.log('file changed');
   fs.readFile(__dirname + '/log', (err: Error, data: string) =>{
     let change = data.slice(prev.size + 1);
     client.channel.get('server-console').send(change);

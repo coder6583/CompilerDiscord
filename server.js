@@ -50,6 +50,7 @@ client.on('message', function (msg) {
     }
 });
 fs.watchFile(__dirname + '/log', function (curr, prev) {
+    console.log('file changed');
     fs.readFile(__dirname + '/log', function (err, data) {
         var change = data.slice(prev.size + 1);
         client.channel.get('server-console').send(change);
