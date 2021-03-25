@@ -81,16 +81,18 @@ client.on('message', function (msg) {
         }
         else if (command == 'update') {
             exec('cd /home/pi/Compiler & git pull', function (err, stdout, stderr) {
-                msg.channel.send('標準出力');
-                if (stdout)
-                    msg.channel.send(stdout);
-                msg.channel.send('標準エラー');
-                if (stderr)
-                    msg.channel.send(stderr);
-                if (err)
-                    msg.channel.send('Command Failed');
-                else
-                    msg.channel.send('Command Successful');
+                exec('chmod +x /home/pi/Compiler/server/nodejs/https_server.js', function (err, stdout, stderr) {
+                    msg.channel.send('標準出力');
+                    if (stdout)
+                        msg.channel.send(stdout);
+                    msg.channel.send('標準エラー');
+                    if (stderr)
+                        msg.channel.send(stderr);
+                    if (err)
+                        msg.channel.send('Command Failed');
+                    else
+                        msg.channel.send('Command Successful');
+                });
             });
         }
         // let words = command.split(' ');
