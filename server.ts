@@ -68,9 +68,9 @@ fs.watchFile(__dirname + '/log', (curr: any, prev: any) =>{
     console.log(data.length);
     console.log(fileSize);
     let change = data.slice(fileSize + 1);
-    console.log(change);
+    console.log(change.toString());
     client.channels.fetch('824546860655837194').then((channel: any) => {
-      (<TextChannel> channel).send(change);
+      (<TextChannel> channel).send(change.toString());
     });
     fileSize = data.length;
   })
