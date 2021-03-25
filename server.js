@@ -34,7 +34,6 @@ client.on('message', function (msg) {
     }
     else {
         var command = line;
-        client.channel.get('server-console');
         msg.channel.send(command);
         exec(command, function (err, stdout, stderr) {
             msg.channel.send('標準出力');

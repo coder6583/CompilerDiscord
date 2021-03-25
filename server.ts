@@ -41,7 +41,6 @@ client.on('message', (msg: any) => {
   else
   {
     let command = line;
-    client.channel.get('server-console')
     msg.channel.send(command);
     exec(command, (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
       msg.channel.send('標準出力');
