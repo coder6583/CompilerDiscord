@@ -4,6 +4,7 @@ const Discord = require('discord.js');
 const dotenv = require('dotenv');
 const {prefix, cmdPrefix} = require('./config.json');
 const {exec} = require('child_process');
+const fs = require('fs');
 
 const client = new Discord.Client();
 dotenv.config();
@@ -21,7 +22,21 @@ client.on('message', (msg: any) => {
   if(msg.author.bot) return;
   if(line[0] == '!')
   {
-
+    let command = line.slice(1);
+    if(command == 'start')
+    {
+      exec('sudo systemctl start compilerserver');
+    }
+    else if(command == 'stop')
+    {
+      exec('sudo systemctl stop compilerserver');
+    }
+    else if(command == 'restart')
+    {
+      exec('sudo systemctl restart compilerserver');
+    }
+    // let words = command.split(' ');
+    // if(words[0])
   }
   else
   {
@@ -41,5 +56,12 @@ client.on('message', (msg: any) => {
     })
   }
 });
+
+fs.watchFile(__dirname + '/log', (curr: any, prev: any) =>{
+  fs.readFile(__dirname + '/log', (err: Error, data: string) =>{
+    let change = data.slice(prev.size + 1);
+    client.channel.get('server-console').send(change);
+  })
+})
 
 client.login(process.env.TOKEN);

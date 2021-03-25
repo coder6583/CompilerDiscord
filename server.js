@@ -4,6 +4,7 @@ var Discord = require('discord.js');
 var dotenv = require('dotenv');
 var _a = require('./config.json'), prefix = _a.prefix, cmdPrefix = _a.cmdPrefix;
 var exec = require('child_process').exec;
+var fs = require('fs');
 var client = new Discord.Client();
 dotenv.config();
 client.on('ready', function () {
@@ -18,6 +19,18 @@ client.on('message', function (msg) {
     if (msg.author.bot)
         return;
     if (line[0] == '!') {
+        var command = line.slice(1);
+        if (command == 'start') {
+            exec('sudo systemctl start compilerserver');
+        }
+        else if (command == 'stop') {
+            exec('sudo systemctl stop compilerserver');
+        }
+        else if (command == 'restart') {
+            exec('sudo systemctl restart compilerserver');
+        }
+        // let words = command.split(' ');
+        // if(words[0])
     }
     else {
         var command = line;
@@ -35,5 +48,11 @@ client.on('message', function (msg) {
                 msg.channel.send('Command Successful');
         });
     }
+});
+fs.watchFile(__dirname + '/log', function (curr, prev) {
+    fs.readFile(__dirname + '/log', function (err, data) {
+        var change = data.slice(prev.size + 1);
+        client.channel.get('server-console').send(change);
+    });
 });
 client.login(process.env.TOKEN);
