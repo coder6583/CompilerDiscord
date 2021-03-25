@@ -61,7 +61,7 @@ fs.watchFile(__dirname + '/log', (curr: any, prev: any) =>{
   console.log('file changed');
   fs.readFile(__dirname + '/log', (err: Error, data: string) =>{
     let change = data.slice(prev.size + 1);
-    client.channels.fetch('server-console').then((channel: any) => {
+    client.channels.fetch('824546860655837194').then((channel: any) => {
       (<TextChannel> channel).send('test');
     });
   })
