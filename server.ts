@@ -18,7 +18,7 @@ client.on('message', msg => {
   if(line[0] == '#')
   {
     msg.channel.send('command');
-    let command = line.splice(1);
+    let command = line.slice(1);
     msg.channel.send(command);
   }
 });

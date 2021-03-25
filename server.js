@@ -15,7 +15,7 @@ client.on('message', function (msg) {
     // msg.channel.send(line);
     if (line[0] == '#') {
         msg.channel.send('command');
-        var command = line.splice(1);
+        var command = line.slice(1);
         msg.channel.send(command);
     }
 });
