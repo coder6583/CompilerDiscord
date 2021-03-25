@@ -13,6 +13,8 @@ client.on('message', msg => {
 //   if (msg.content === 'ping') {
 //     msg.reply('Pong!');
 //   }
+  let line = msg.content;
+  msg.channel.send(line);
   if(msg.content ==`${prefix}ping`)
   {
       msg.channel.send('yea');

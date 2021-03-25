@@ -11,6 +11,8 @@ client.on('message', function (msg) {
     //   if (msg.content === 'ping') {
     //     msg.reply('Pong!');
     //   }
+    var line = msg.content;
+    msg.channel.send(line);
     if (msg.content == prefix + "ping") {
         msg.channel.send('yea');
     }
