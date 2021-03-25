@@ -37,7 +37,7 @@ client.on('message', function (msg) {
                 else
                     msg.channel.send('Command Successful');
             });
-            fs.write(__dirname + '/log', '', function (err) {
+            fs.writeFile(__dirname + '/log', '', function (err) {
                 if (err)
                     msg.channel.send('Could not empty log file');
                 else
@@ -71,7 +71,7 @@ client.on('message', function (msg) {
                 else
                     msg.channel.send('Command Successful');
             });
-            fs.write(__dirname + '/log', '', function (err) {
+            fs.writeFile(__dirname + '/log', '', function (err) {
                 if (err)
                     msg.channel.send('Could not empty log file');
                 else

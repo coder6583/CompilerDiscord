@@ -42,7 +42,7 @@ client.on('message', (msg: any) => {
         else
           msg.channel.send('Command Successful');
       });
-      fs.write(__dirname + '/log', '', (err: Error) => {
+      fs.writeFile(__dirname + '/log', '', (err: Error) => {
         if(err) msg.channel.send('Could not empty log file');
         else msg.channel.send('Start process complete');
       })
@@ -76,7 +76,7 @@ client.on('message', (msg: any) => {
         else
           msg.channel.send('Command Successful');
       });
-      fs.write(__dirname + '/log', '', (err: Error) => {
+      fs.writeFile(__dirname + '/log', '', (err: Error) => {
         if(err) msg.channel.send('Could not empty log file');
         else msg.channel.send('Restart complete');
       })
