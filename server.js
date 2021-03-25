@@ -56,10 +56,13 @@ client.on('message', function (msg) {
 fs.watchFile(__dirname + '/log', function (curr, prev) {
     console.log('file changed');
     fs.readFile(__dirname + '/log', function (err, data) {
+        console.log(data.length);
+        console.log(fileSize);
         var change = data.slice(fileSize + 1);
         client.channels.fetch('824546860655837194').then(function (channel) {
             channel.send(change);
         });
+        fileSize = data.length;
     });
 });
 client.login(process.env.TOKEN);

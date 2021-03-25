@@ -65,10 +65,13 @@ client.on('message', (msg: any) => {
 fs.watchFile(__dirname + '/log', (curr: any, prev: any) =>{
   console.log('file changed');
   fs.readFile(__dirname + '/log', (err: Error, data: string) =>{
+    console.log(data.length);
+    console.log(fileSize);
     let change = data.slice(fileSize + 1);
     client.channels.fetch('824546860655837194').then((channel: any) => {
       (<TextChannel> channel).send(change);
     });
+    fileSize = data.length;
   })
 })
 
