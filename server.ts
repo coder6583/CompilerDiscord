@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const dotenv = require('dotenv');
 const {prefix, cmdPrefix} = require('./config.json');
+const {exec} = require('child_process');
 
 const client = new Discord.Client();
 dotenv.config();
@@ -9,7 +10,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('message', msg => {
+client.on('message', (msg: any) => {
 //   if (msg.content === 'ping') {
 //     msg.reply('Pong!');
 //   }
@@ -17,9 +18,18 @@ client.on('message', msg => {
   // msg.channel.send(line);
   if(line[0] == '#')
   {
-    msg.channel.send('command');
     let command = line.slice(1);
     msg.channel.send(command);
+    exec(command, (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
+      msg.channel.send('標準出力');
+      msg.channel.send(stdout);
+      msg.channel.send('標準エラー');
+      msg.channel.send(stderr);
+      if(err)
+        msg.channel.send('Command Failed');
+      else
+        msg.channel.send('Command Successful');
+    })
   }
 });
 

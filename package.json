@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/curvingchicken/CompilerDiscord#readme",
   "dependencies": {
+    "child_process": "^1.0.2",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
+    "fs": "0.0.1-security",
     "typescript": "^4.2.3"
   },
   "devDependencies": {

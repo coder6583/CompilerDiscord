@@ -2,6 +2,7 @@
 var Discord = require('discord.js');
 var dotenv = require('dotenv');
 var _a = require('./config.json'), prefix = _a.prefix, cmdPrefix = _a.cmdPrefix;
+var exec = require('child_process').exec;
 var client = new Discord.Client();
 dotenv.config();
 client.on('ready', function () {
@@ -14,9 +15,18 @@ client.on('message', function (msg) {
     var line = msg.content;
     // msg.channel.send(line);
     if (line[0] == '#') {
-        msg.channel.send('command');
         var command = line.slice(1);
         msg.channel.send(command);
+        exec(command, function (err, stdout, stderr) {
+            msg.channel.send('標準出力');
+            msg.channel.send(stdout);
+            msg.channel.send('標準エラー');
+            msg.channel.send(stderr);
+            if (err)
+                msg.channel.send('Command Failed');
+            else
+                msg.channel.send('Command Successful');
+        });
     }
 });
 client.login(process.env.TOKEN);
