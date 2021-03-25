@@ -65,14 +65,21 @@ client.on('message', (msg: any) => {
 fs.watchFile(__dirname + '/log', (curr: any, prev: any) =>{
   console.log('file changed');
   fs.readFile(__dirname + '/log', (err: Error, data: string) =>{
-    console.log(data.length);
-    console.log(fileSize);
-    let change = data.slice(fileSize + 1);
-    console.log(change.toString());
-    client.channels.fetch('824546860655837194').then((channel: any) => {
-      (<TextChannel> channel).send(change.toString());
-    });
-    fileSize = data.length;
+    if(data.length == 0)
+    {
+      fileSize = 0;
+    }
+    else
+    {
+      console.log(data.length);
+      console.log(fileSize);
+      let change = data.slice(fileSize + 1);
+      console.log(change.toString());
+      client.channels.fetch('824546860655837194').then((channel: any) => {
+        (<TextChannel> channel).send(change.toString());
+      });
+      fileSize = data.length;
+    }
   })
 })
 

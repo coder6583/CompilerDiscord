@@ -56,14 +56,19 @@ client.on('message', function (msg) {
 fs.watchFile(__dirname + '/log', function (curr, prev) {
     console.log('file changed');
     fs.readFile(__dirname + '/log', function (err, data) {
-        console.log(data.length);
-        console.log(fileSize);
-        var change = data.slice(fileSize + 1);
-        console.log(change.toString());
-        client.channels.fetch('824546860655837194').then(function (channel) {
-            channel.send(change.toString());
-        });
-        fileSize = data.length;
+        if (data.length == 0) {
+            fileSize = 0;
+        }
+        else {
+            console.log(data.length);
+            console.log(fileSize);
+            var change_1 = data.slice(fileSize + 1);
+            console.log(change_1.toString());
+            client.channels.fetch('824546860655837194').then(function (channel) {
+                channel.send(change_1.toString());
+            });
+            fileSize = data.length;
+        }
     });
 });
 client.login(process.env.TOKEN);
