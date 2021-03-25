@@ -87,7 +87,7 @@ client.on('message', (msg: any) => {
 
     else if(command == 'update')
     {
-      exec('cd /home/pi/Compiler & git pull', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
+      exec('git --git-dir /home/pi/Compiler/.git pull', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
         msg.channel.send('標準出力');
           if(stdout)
             msg.channel.send(stdout);
