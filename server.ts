@@ -116,7 +116,7 @@ client.on('message', (msg: any) => {
       {
         if(!(args[1] === undefined))
         {
-          fs.appendFile('/home/pi/ipBlacklist', args[1] + ';', (err: Error) => {
+          fs.appendFile('/home/pi/ipBlacklist', args[1] + ';\n', (err: Error) => {
             if(!err)
             {
               msg.channel.send('Blacklisted ' + args[1]);
