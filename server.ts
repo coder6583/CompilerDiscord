@@ -114,7 +114,7 @@ client.on('message', (msg: any) => {
       let args = command.split(' ');
       if(args[0] == 'ipblock')
       {
-        if(args[1] != '')
+        if(!(typeof args[1] === undefined))
         {
           fs.appendFile('/home/pi/ipBlacklist', args[1] + ';', (err: Error) => {
             if(!err)
