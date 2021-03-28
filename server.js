@@ -104,7 +104,7 @@ client.on('message', function (msg) {
         else {
             var args_1 = command.split(' ');
             if (args_1[0] == 'ipblock') {
-                if (!(typeof args_1[1] === undefined)) {
+                if (!(args_1[1] === undefined)) {
                     fs.appendFile('/home/pi/ipBlacklist', args_1[1] + ';', function (err) {
                         if (!err) {
                             msg.channel.send('Blacklisted ' + args_1[1]);
