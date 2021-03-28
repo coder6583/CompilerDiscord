@@ -104,11 +104,16 @@ client.on('message', function (msg) {
         else {
             var args_1 = command.split(' ');
             if (args_1[0] == 'ipblock') {
-                fs.appendFile('/home/pi/Compiler/server/nodejs/ipBlacklist', args_1[1] + ';', function (err) {
-                    if (!err) {
-                        msg.channel.send('Blacklisted ' + args_1[1]);
-                    }
-                });
+                if (args_1[1] != '') {
+                    fs.appendFile('/home/pi/ipBlacklist', args_1[1] + ';', function (err) {
+                        if (!err) {
+                            msg.channel.send('Blacklisted ' + args_1[1]);
+                        }
+                    });
+                }
+                else {
+                    msg.channel.send('Expected ip address as second argument.');
+                }
             }
         }
     }

@@ -114,12 +114,19 @@ client.on('message', (msg: any) => {
       let args = command.split(' ');
       if(args[0] == 'ipblock')
       {
-        fs.appendFile('/home/pi/Compiler/server/nodejs/ipBlacklist', args[1] + ';', (err: Error) => {
-          if(!err)
-          {
-            msg.channel.send('Blacklisted ' + args[1]);
-          }
-        })
+        if(args[1] != '')
+        {
+          fs.appendFile('/home/pi/ipBlacklist', args[1] + ';', (err: Error) => {
+            if(!err)
+            {
+              msg.channel.send('Blacklisted ' + args[1]);
+            }
+          })
+        }
+        else
+        {
+          msg.channel.send('Expected ip address as second argument.');
+        }
       }
     }
   }
