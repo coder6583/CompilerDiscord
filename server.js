@@ -101,8 +101,16 @@ client.on('message', function (msg) {
                 });
             });
         }
-        // let words = command.split(' ');
-        // if(words[0])
+        else {
+            var args_1 = command.split(' ');
+            if (args_1[0] == 'ipblock') {
+                fs.appendFile('/home/pi/Compiler/server/nodejs/ipBlacklist', args_1[1] + ';', function (err) {
+                    if (!err) {
+                        msg.channel.send('Blacklisted ' + args_1[1]);
+                    }
+                });
+            }
+        }
     }
     else {
         var command = line;

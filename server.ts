@@ -109,8 +109,19 @@ client.on('message', (msg: any) => {
         })
       });
     }
-    // let words = command.split(' ');
-    // if(words[0])
+    else
+    {
+      let args = command.split(' ');
+      if(args[0] == 'ipblock')
+      {
+        fs.appendFile('/home/pi/Compiler/server/nodejs/ipBlacklist', args[1] + ';', (err: Error) => {
+          if(!err)
+          {
+            msg.channel.send('Blacklisted ' + args[1]);
+          }
+        })
+      }
+    }
   }
   else
   {
