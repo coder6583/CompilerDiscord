@@ -130,6 +130,7 @@ client.on('message', (msg: any) => {
       }
     }
   }
+  
   else
   {
     let command = line;
