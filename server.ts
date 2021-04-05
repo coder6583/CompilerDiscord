@@ -9,7 +9,11 @@ const {exec} = require('child_process');
 const fs = require('fs');
 
 let fileSize = 0;
+let adminfileSize = 0;
 fs.readFile(__dirname + '/log', (err: Error, data: string) => {
+  fileSize = data.length;
+});
+fs.readFile(__dirname + '/adminlog', (err: Error, data: string) => {
   fileSize = data.length;
 });
 
@@ -49,6 +53,25 @@ client.on('message', (msg: any) => {
         else msg.channel.send('Start process complete');
       })
     }
+    else if(command == 'startadmin')
+    {
+      exec('sudo systemctl start admincompilerserver', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
+        msg.channel.send('標準出力');
+        if(stdout)
+          msg.channel.send(stdout);
+        msg.channel.send('標準エラー');
+        if(stderr)
+          msg.channel.send(stderr);
+        if(err)
+          msg.channel.send('Command Failed');
+        else
+          msg.channel.send('Command Successful');
+      });
+      fs.writeFile(__dirname + '/log', '', (err: Error) => {
+        if(err) msg.channel.send('Could not empty log file');
+        else msg.channel.send('Start process complete');
+      })
+    }
     else if(command == 'stop')
     {
       exec('sudo systemctl stop compilerserver', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
@@ -64,7 +87,21 @@ client.on('message', (msg: any) => {
           msg.channel.send('Command Successful');
       });
     }
-
+    else if(command == 'stopadmin')
+    {
+      exec('sudo systemctl stop admincompilerserver', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
+        msg.channel.send('標準出力');
+        if(stdout)
+          msg.channel.send(stdout);
+        msg.channel.send('標準エラー');
+        if(stderr)
+          msg.channel.send(stderr);
+        if(err)
+          msg.channel.send('Command Failed');
+        else
+          msg.channel.send('Command Successful');
+      });
+    }
     else if(command == 'restart')
     {
       exec('sudo systemctl restart compilerserver', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
@@ -84,7 +121,25 @@ client.on('message', (msg: any) => {
         else msg.channel.send('Restart complete');
       })
     }
-
+    else if(command == 'restartadmin')
+    {
+      exec('sudo systemctl restart admincompilerserver', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
+        msg.channel.send('標準出力');
+        if(stdout)
+          msg.channel.send(stdout);
+        msg.channel.send('標準エラー');
+        if(stderr)
+          msg.channel.send(stderr);
+        if(err)
+          msg.channel.send('Command Failed');
+        else
+          msg.channel.send('Command Successful');
+      });
+      fs.writeFile(__dirname + '/log', '', (err: Error) => {
+        if(err) msg.channel.send('Could not empty log file');
+        else msg.channel.send('Restart complete');
+      })
+    }
     else if(command == 'update')
     {
       exec('git -C /home/pi/Compiler stash', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
@@ -101,6 +156,27 @@ client.on('message', (msg: any) => {
             if(stderr)
               msg.channel.send(stderr);
           exec('chmod +x /home/pi/Compiler/server/nodejs/https_server.js', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
+            if(err)
+              msg.channel.send('Command Failed');
+            else
+              msg.channel.send('Command Successful');
+          })
+        })
+      });
+      exec('git -C /home/pi/AdminCompilerServer stash', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
+        if(err)
+          msg.channel.send('Command Failed');
+          
+        else
+          msg.channel.send('Command Successful');
+        exec('git -C /home/pi/AdminCompilerServer pull ', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
+          msg.channel.send('標準出力');
+            if(stdout)
+              msg.channel.send(stdout);
+            msg.channel.send('標準エラー');
+            if(stderr)
+              msg.channel.send(stderr);
+          exec('chmod +x /home/pi/AdminCompilerServer/server/nodejs/https_server.js', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
             if(err)
               msg.channel.send('Command Failed');
             else
@@ -164,6 +240,26 @@ fs.watchFile(__dirname + '/log', (curr: any, prev: any) =>{
       let change = data.slice(fileSize);
       console.log(change.toString());
       client.channels.fetch('824546860655837194').then((channel: any) => {
+        (<TextChannel> channel).send('```' + change.toString()+ '```');
+      });
+      fileSize = data.length;
+    }
+  })
+})
+fs.watchFile(__dirname + '/adminlog', (curr: any, prev: any) =>{
+  console.log('file changed');
+  fs.readFile(__dirname + '/adminlog', (err: Error, data: string) =>{
+    if(data.length == 0)
+    {
+      fileSize = 0;
+    }
+    else
+    {
+      console.log(data.length);
+      console.log(fileSize);
+      let change = data.slice(fileSize);
+      console.log(change.toString());
+      client.channels.fetch('828560653341163550').then((channel: any) => {
         (<TextChannel> channel).send('```' + change.toString()+ '```');
       });
       fileSize = data.length;
