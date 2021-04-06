@@ -25,6 +25,7 @@ client.on('ready', () => {
 });
 
 client.on('message', (msg: any) => {
+  console.log(msg);
 //   if (msg.content === 'ping') {
 //     msg.reply('Pong!');
 //   }
@@ -67,7 +68,7 @@ client.on('message', (msg: any) => {
         else
           msg.channel.send('Command Successful');
       });
-      fs.writeFile(__dirname + '/log', '', (err: Error) => {
+      fs.writeFile(__dirname + '/adminlog', '', (err: Error) => {
         if(err) msg.channel.send('Could not empty log file');
         else msg.channel.send('Start process complete');
       })
@@ -135,7 +136,7 @@ client.on('message', (msg: any) => {
         else
           msg.channel.send('Command Successful');
       });
-      fs.writeFile(__dirname + '/log', '', (err: Error) => {
+      fs.writeFile(__dirname + '/adminlog', '', (err: Error) => {
         if(err) msg.channel.send('Could not empty log file');
         else msg.channel.send('Restart complete');
       })
@@ -144,10 +145,10 @@ client.on('message', (msg: any) => {
     {
       exec('git -C /home/pi/Compiler stash', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
         if(err)
-          msg.channel.send('Command Failed');
+          msg.channel.send('Compiler Stash Failed');
           
         else
-          msg.channel.send('Command Successful');
+          msg.channel.send('Compiler Stash Successful');
         exec('git -C /home/pi/Compiler pull ', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
           msg.channel.send('標準出力');
             if(stdout)
@@ -157,18 +158,18 @@ client.on('message', (msg: any) => {
               msg.channel.send(stderr);
           exec('chmod +x /home/pi/Compiler/server/nodejs/https_server.js', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
             if(err)
-              msg.channel.send('Command Failed');
+              msg.channel.send('Chmod Failed');
             else
-              msg.channel.send('Command Successful');
+              msg.channel.send('Chmod Successful');
           })
         })
       });
       exec('git -C /home/pi/AdminCompilerServer stash', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
         if(err)
-          msg.channel.send('Command Failed');
+          msg.channel.send('Admin Stash Failed');
           
         else
-          msg.channel.send('Command Successful');
+          msg.channel.send('Admin Stash Successful');
         exec('git -C /home/pi/AdminCompilerServer pull ', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
           msg.channel.send('標準出力');
             if(stdout)
@@ -178,9 +179,9 @@ client.on('message', (msg: any) => {
               msg.channel.send(stderr);
           exec('chmod +x /home/pi/AdminCompilerServer/server/nodejs/https_server.js', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
             if(err)
-              msg.channel.send('Command Failed');
+              msg.channel.send('Admin Chmod Failed');
             else
-              msg.channel.send('Command Successful');
+              msg.channel.send('Admin Chmod Successful');
           })
         })
       });
