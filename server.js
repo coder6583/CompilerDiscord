@@ -20,7 +20,7 @@ client.on('ready', function () {
     console.log("Logged in as " + client.user.tag + "!");
 });
 client.on('message', function (msg) {
-    console.log(msg);
+    console.log(msg.content);
     //   if (msg.content === 'ping') {
     //     msg.reply('Pong!');
     //   }
