@@ -233,10 +233,10 @@ fs.watchFile(__dirname + '/log', function (curr, prev) {
     });
 });
 fs.watchFile(__dirname + '/adminlog', function (curr, prev) {
-    console.log('file changed');
+    console.log('admin file changed');
     fs.readFile(__dirname + '/adminlog', function (err, data) {
         if (data.length == 0) {
-            fileSize = 0;
+            adminfileSize = 0;
         }
         else {
             console.log(data.length);

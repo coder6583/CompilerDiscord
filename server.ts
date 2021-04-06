@@ -8,8 +8,8 @@ const {prefix, cmdPrefix} = require('./config.json');
 const {exec} = require('child_process');
 const fs = require('fs');
 
-let fileSize = 0;
-let adminfileSize = 0;
+var fileSize = 0;
+var adminfileSize = 0;
 fs.readFile(__dirname + '/log', (err: Error, data: string) => {
   fileSize = data.length;
 });
@@ -249,11 +249,11 @@ fs.watchFile(__dirname + '/log', (curr: any, prev: any) =>{
   })
 })
 fs.watchFile(__dirname + '/adminlog', (curr: any, prev: any) =>{
-  console.log('file changed');
+  console.log('admin file changed');
   fs.readFile(__dirname + '/adminlog', (err: Error, data: string) =>{
     if(data.length == 0)
     {
-      fileSize = 0;
+      adminfileSize = 0;
     }
     else
     {
