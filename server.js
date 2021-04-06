@@ -12,11 +12,12 @@ fs.readFile(__dirname + '/log', function (err, data) {
     fileSize = data.length;
 });
 fs.readFile(__dirname + '/adminlog', function (err, data) {
-    fileSize = data.length;
+    adminfileSize = data.length;
 });
 var client = new Discord.Client();
 dotenv.config();
 client.on('ready', function () {
+    console.log('a');
     console.log("Logged in as " + client.user.tag + "!");
 });
 client.on('message', function (msg) {
@@ -239,13 +240,13 @@ fs.watchFile(__dirname + '/adminlog', function (curr, prev) {
         }
         else {
             console.log(data.length);
-            console.log(fileSize);
-            var change_2 = data.slice(fileSize);
+            console.log(adminfileSize);
+            var change_2 = data.slice(adminfileSize);
             console.log(change_2.toString());
             client.channels.fetch('828560653341163550').then(function (channel) {
                 channel.send('```' + change_2.toString() + '```');
             });
-            fileSize = data.length;
+            adminfileSize = data.length;
         }
     });
 });

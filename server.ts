@@ -14,13 +14,14 @@ fs.readFile(__dirname + '/log', (err: Error, data: string) => {
   fileSize = data.length;
 });
 fs.readFile(__dirname + '/adminlog', (err: Error, data: string) => {
-  fileSize = data.length;
+  adminfileSize = data.length;
 });
 
 const client = new Discord.Client();
 dotenv.config();
 
 client.on('ready', () => {
+  console.log('a');
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
@@ -257,13 +258,13 @@ fs.watchFile(__dirname + '/adminlog', (curr: any, prev: any) =>{
     else
     {
       console.log(data.length);
-      console.log(fileSize);
-      let change = data.slice(fileSize);
+      console.log(adminfileSize);
+      let change = data.slice(adminfileSize);
       console.log(change.toString());
       client.channels.fetch('828560653341163550').then((channel: any) => {
         (<TextChannel> channel).send('```' + change.toString()+ '```');
       });
-      fileSize = data.length;
+      adminfileSize = data.length;
     }
   })
 })
