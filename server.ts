@@ -9,12 +9,20 @@ const {exec} = require('child_process');
 const fs = require('fs');
 
 var fileSize = 0;
+var errorfileSize = 0;
 var adminfileSize = 0;
+var erroradminfileSize = 0;
 fs.readFile(__dirname + '/log', (err: Error, data: string) => {
   fileSize = data.length;
 });
+fs.readFile(__dirname + '/errorlog', (err: Error, data: string) => {
+  errorfileSize = data.length;
+});
 fs.readFile(__dirname + '/adminlog', (err: Error, data: string) => {
   adminfileSize = data.length;
+});
+fs.readFile(__dirname + '/erroradminlog', (err: Error, data: string) => {
+  erroradminfileSize = data.length;
 });
 
 const client = new Discord.Client();
@@ -52,6 +60,10 @@ client.on('message', (msg: any) => {
       });
       fs.writeFile(__dirname + '/log', '', (err: Error) => {
         if(err) msg.channel.send('Could not empty log file');
+        // else msg.channel.send('Start process complete');
+      })
+      fs.writeFile(__dirname + '/errorlog', '', (err: Error) => {
+        if(err) msg.channel.send('Could not empty error log file');
         else msg.channel.send('Start process complete');
       })
     }
@@ -71,6 +83,10 @@ client.on('message', (msg: any) => {
       });
       fs.writeFile(__dirname + '/adminlog', '', (err: Error) => {
         if(err) msg.channel.send('Could not empty log file');
+        // else msg.channel.send('Start process complete');
+      })
+      fs.writeFile(__dirname + '/erroradminlog', '', (err: Error) => {
+        if(err) msg.channel.send('Could not empty error log file');
         else msg.channel.send('Start process complete');
       })
     }
@@ -120,6 +136,10 @@ client.on('message', (msg: any) => {
       });
       fs.writeFile(__dirname + '/log', '', (err: Error) => {
         if(err) msg.channel.send('Could not empty log file');
+        // else msg.channel.send('Restart complete');
+      })
+      fs.writeFile(__dirname + '/errorlog', '', (err: Error) => {
+        if(err) msg.channel.send('Could not empty error log file');
         else msg.channel.send('Restart complete');
       })
     }
@@ -139,6 +159,10 @@ client.on('message', (msg: any) => {
       });
       fs.writeFile(__dirname + '/adminlog', '', (err: Error) => {
         if(err) msg.channel.send('Could not empty log file');
+        else msg.channel.send('Restart complete');
+      })
+      fs.writeFile(__dirname + '/erroradminlog', '', (err: Error) => {
+        if(err) msg.channel.send('Could not empty error log file');
         else msg.channel.send('Restart complete');
       })
     }
@@ -248,6 +272,26 @@ fs.watchFile(__dirname + '/log', (curr: any, prev: any) =>{
     }
   })
 })
+fs.watchFile(__dirname + '/errorlog', (curr: any, prev: any) =>{
+  console.log('file changed');
+  fs.readFile(__dirname + '/errorlog', (err: Error, data: string) =>{
+    if(data.length == 0)
+    {
+      errorfileSize = 0;
+    }
+    else
+    {
+      console.log(data.length);
+      console.log(errorfileSize);
+      let change = data.slice(errorfileSize);
+      console.log(change.toString());
+      client.channels.fetch('824546860655837194').then((channel: any) => {
+        (<TextChannel> channel).send('```' + change.toString()+ '```');
+      });
+      errorfileSize = data.length;
+    }
+  })
+})
 fs.watchFile(__dirname + '/adminlog', (curr: any, prev: any) =>{
   console.log('admin file changed');
   fs.readFile(__dirname + '/adminlog', (err: Error, data: string) =>{
@@ -265,6 +309,26 @@ fs.watchFile(__dirname + '/adminlog', (curr: any, prev: any) =>{
         (<TextChannel> channel).send('```' + change.toString()+ '```');
       });
       adminfileSize = data.length;
+    }
+  })
+})
+fs.watchFile(__dirname + '/erroradminlog', (curr: any, prev: any) =>{
+  console.log('admin file changed');
+  fs.readFile(__dirname + '/erroradminlog', (err: Error, data: string) =>{
+    if(data.length == 0)
+    {
+      erroradminfileSize = 0;
+    }
+    else
+    {
+      console.log(data.length);
+      console.log(erroradminfileSize);
+      let change = data.slice(erroradminfileSize);
+      console.log(change.toString());
+      client.channels.fetch('828560653341163550').then((channel: any) => {
+        (<TextChannel> channel).send('```' + change.toString()+ '```');
+      });
+      erroradminfileSize = data.length;
     }
   })
 })

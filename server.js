@@ -7,12 +7,20 @@ var _a = require('./config.json'), prefix = _a.prefix, cmdPrefix = _a.cmdPrefix;
 var exec = require('child_process').exec;
 var fs = require('fs');
 var fileSize = 0;
+var errorfileSize = 0;
 var adminfileSize = 0;
+var erroradminfileSize = 0;
 fs.readFile(__dirname + '/log', function (err, data) {
     fileSize = data.length;
 });
+fs.readFile(__dirname + '/errorlog', function (err, data) {
+    errorfileSize = data.length;
+});
 fs.readFile(__dirname + '/adminlog', function (err, data) {
     adminfileSize = data.length;
+});
+fs.readFile(__dirname + '/erroradminlog', function (err, data) {
+    erroradminfileSize = data.length;
 });
 var client = new Discord.Client();
 dotenv.config();
@@ -47,6 +55,11 @@ client.on('message', function (msg) {
             fs.writeFile(__dirname + '/log', '', function (err) {
                 if (err)
                     msg.channel.send('Could not empty log file');
+                // else msg.channel.send('Start process complete');
+            });
+            fs.writeFile(__dirname + '/errorlog', '', function (err) {
+                if (err)
+                    msg.channel.send('Could not empty error log file');
                 else
                     msg.channel.send('Start process complete');
             });
@@ -67,6 +80,11 @@ client.on('message', function (msg) {
             fs.writeFile(__dirname + '/adminlog', '', function (err) {
                 if (err)
                     msg.channel.send('Could not empty log file');
+                // else msg.channel.send('Start process complete');
+            });
+            fs.writeFile(__dirname + '/erroradminlog', '', function (err) {
+                if (err)
+                    msg.channel.send('Could not empty error log file');
                 else
                     msg.channel.send('Start process complete');
             });
@@ -115,6 +133,11 @@ client.on('message', function (msg) {
             fs.writeFile(__dirname + '/log', '', function (err) {
                 if (err)
                     msg.channel.send('Could not empty log file');
+                // else msg.channel.send('Restart complete');
+            });
+            fs.writeFile(__dirname + '/errorlog', '', function (err) {
+                if (err)
+                    msg.channel.send('Could not empty error log file');
                 else
                     msg.channel.send('Restart complete');
             });
@@ -135,6 +158,12 @@ client.on('message', function (msg) {
             fs.writeFile(__dirname + '/adminlog', '', function (err) {
                 if (err)
                     msg.channel.send('Could not empty log file');
+                else
+                    msg.channel.send('Restart complete');
+            });
+            fs.writeFile(__dirname + '/erroradminlog', '', function (err) {
+                if (err)
+                    msg.channel.send('Could not empty error log file');
                 else
                     msg.channel.send('Restart complete');
             });
@@ -232,6 +261,24 @@ fs.watchFile(__dirname + '/log', function (curr, prev) {
         }
     });
 });
+fs.watchFile(__dirname + '/errorlog', function (curr, prev) {
+    console.log('file changed');
+    fs.readFile(__dirname + '/errorlog', function (err, data) {
+        if (data.length == 0) {
+            errorfileSize = 0;
+        }
+        else {
+            console.log(data.length);
+            console.log(errorfileSize);
+            var change_2 = data.slice(errorfileSize);
+            console.log(change_2.toString());
+            client.channels.fetch('824546860655837194').then(function (channel) {
+                channel.send('```' + change_2.toString() + '```');
+            });
+            errorfileSize = data.length;
+        }
+    });
+});
 fs.watchFile(__dirname + '/adminlog', function (curr, prev) {
     console.log('admin file changed');
     fs.readFile(__dirname + '/adminlog', function (err, data) {
@@ -241,12 +288,30 @@ fs.watchFile(__dirname + '/adminlog', function (curr, prev) {
         else {
             console.log(data.length);
             console.log(adminfileSize);
-            var change_2 = data.slice(adminfileSize);
-            console.log(change_2.toString());
+            var change_3 = data.slice(adminfileSize);
+            console.log(change_3.toString());
             client.channels.fetch('828560653341163550').then(function (channel) {
-                channel.send('```' + change_2.toString() + '```');
+                channel.send('```' + change_3.toString() + '```');
             });
             adminfileSize = data.length;
+        }
+    });
+});
+fs.watchFile(__dirname + '/erroradminlog', function (curr, prev) {
+    console.log('admin file changed');
+    fs.readFile(__dirname + '/erroradminlog', function (err, data) {
+        if (data.length == 0) {
+            erroradminfileSize = 0;
+        }
+        else {
+            console.log(data.length);
+            console.log(erroradminfileSize);
+            var change_4 = data.slice(erroradminfileSize);
+            console.log(change_4.toString());
+            client.channels.fetch('828560653341163550').then(function (channel) {
+                channel.send('```' + change_4.toString() + '```');
+            });
+            erroradminfileSize = data.length;
         }
     });
 });
