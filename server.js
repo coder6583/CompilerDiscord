@@ -34,7 +34,7 @@ client.on('message', function (msg) {
         return;
     }
     msg.channel.send('ping');
-    return;
+    // return;
     console.log(msg.content);
     //   if (msg.content === 'ping') {
     //     msg.reply('Pong!');
