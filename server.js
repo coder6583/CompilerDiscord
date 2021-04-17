@@ -145,6 +145,7 @@ client.on('message', function (msg) {
             });
         }
         else if (command == 'restartadmin') {
+            msg.channel.send("Restarting...これもスパムしないほうがいいね");
             exec('sudo systemctl restart admincompilerserver', function (err, stdout, stderr) {
                 msg.channel.send('標準出力');
                 if (stdout)

@@ -149,6 +149,7 @@ client.on('message', (msg: any) => {
     }
     else if(command == 'restartadmin')
     {
+      msg.channel.send("Restarting...これもスパムしないほうがいいね")
       exec('sudo systemctl restart admincompilerserver', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
         msg.channel.send('標準出力');
         if(stdout)
