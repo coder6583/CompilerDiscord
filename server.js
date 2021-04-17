@@ -35,8 +35,10 @@ client.on('message', function (msg) {
     //   }
     var line = msg.content;
     // msg.channel.send(line);
-    if (msg.author.bot)
+    if (msg.author.bot) {
+        console.log("bot");
         return;
+    }
     if (line[0] == '!') {
         var command = line.slice(1);
         if (command == 'start') {

@@ -40,7 +40,11 @@ client.on('message', (msg: any) => {
 //   }
   let line = msg.content;
   // msg.channel.send(line);
-  if(msg.author.bot) return;
+  if(msg.author.bot)
+  {
+    console.log("bot");
+    return;
+  }
   if(line[0] == '!')
   {
     let command = line.slice(1);
