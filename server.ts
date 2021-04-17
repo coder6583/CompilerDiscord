@@ -34,6 +34,8 @@ client.on('ready', () => {
 });
 
 client.on('message', (msg: any) => {
+  msg.channel.send('ping');
+  return;
   console.log(msg.content);
 //   if (msg.content === 'ping') {
 //     msg.reply('Pong!');

@@ -29,6 +29,8 @@ client.on('ready', function () {
     console.log("Logged in as " + client.user.tag + "!");
 });
 client.on('message', function (msg) {
+    msg.channel.send('ping');
+    return;
     console.log(msg.content);
     //   if (msg.content === 'ping') {
     //     msg.reply('Pong!');
