@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 try {
-    import { Message, TextChannel } from "discord.js";
     var Discord = require('discord.js');
     var dotenv = require('dotenv');
     var _a = require('./config.json'), prefix = _a.prefix, cmdPrefix = _a.cmdPrefix;

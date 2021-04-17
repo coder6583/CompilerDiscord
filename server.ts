@@ -1,7 +1,8 @@
 #!/usr/bin/env node
+import { Message, TextChannel } from "discord.js";
+
 try
 {
-import { Message, TextChannel } from "discord.js";
 
 const Discord = require('discord.js');
 const dotenv = require('dotenv');
