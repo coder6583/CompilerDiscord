@@ -169,6 +169,7 @@ client.on('message', function (msg) {
             });
         }
         else if (command == 'update') {
+            msg.channel.send("Updating... スパムしないで頑張ってるから");
             exec('git -C /home/pi/Compiler stash', function (err, stdout, stderr) {
                 if (err)
                     msg.channel.send('Compiler Stash Failed');

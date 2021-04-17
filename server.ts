@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { Message, TextChannel } from "discord.js";
+import { Channel, Message, TextChannel } from "discord.js";
 
 const Discord = require('discord.js');
 const dotenv = require('dotenv');
@@ -168,6 +168,7 @@ client.on('message', (msg: any) => {
     }
     else if(command == 'update')
     {
+      msg.channel.send("Updating... スパムしないで頑張ってるから")
       exec('git -C /home/pi/Compiler stash', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
         if(err)
           msg.channel.send('Compiler Stash Failed');
