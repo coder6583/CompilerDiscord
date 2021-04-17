@@ -34,6 +34,11 @@ client.on('ready', () => {
 });
 
 client.on('message', (msg: any) => {
+  if(msg.author.bot)
+  {
+    console.log("bot");
+    return;
+  }
   msg.channel.send('ping');
   return;
   console.log(msg.content);
