@@ -34,13 +34,13 @@ client.on('ready', () => {
 });
 
 client.on('message', (msg: any) => {
-  msg.channel.send('ping');
   if(msg.author.bot)
   {
     console.log("bot");
     return;
   }
   // return;
+  msg.channel.send('ping');
   console.log(msg.content);
   let line = msg.content;
   // msg.channel.send(line);
