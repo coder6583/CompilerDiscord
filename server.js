@@ -36,9 +36,6 @@ client.on('message', function (msg) {
     }
     // return;
     console.log(msg.content);
-    //   if (msg.content === 'ping') {
-    //     msg.reply('Pong!');
-    //   }
     var line = msg.content;
     // msg.channel.send(line);
     if (msg.author.bot) {
@@ -48,6 +45,7 @@ client.on('message', function (msg) {
     if (line[0] == '!') {
         var command = line.slice(1);
         if (command == 'start') {
+            msg.channel.send('Starting...');
             exec('sudo systemctl start compilerserver', function (err, stdout, stderr) {
                 msg.channel.send('標準出力');
                 if (stdout)
@@ -73,6 +71,7 @@ client.on('message', function (msg) {
             });
         }
         else if (command == 'startadmin') {
+            msg.channel.send('Starting admin...');
             exec('sudo systemctl start admincompilerserver', function (err, stdout, stderr) {
                 msg.channel.send('標準出力');
                 if (stdout)
@@ -98,6 +97,7 @@ client.on('message', function (msg) {
             });
         }
         else if (command == 'stop') {
+            msg.channel.send('Stopping...');
             exec('sudo systemctl stop compilerserver', function (err, stdout, stderr) {
                 msg.channel.send('標準出力');
                 if (stdout)
@@ -112,6 +112,7 @@ client.on('message', function (msg) {
             });
         }
         else if (command == 'stopadmin') {
+            msg.channel.send('Stopping admin...');
             exec('sudo systemctl stop admincompilerserver', function (err, stdout, stderr) {
                 msg.channel.send('標準出力');
                 if (stdout)
@@ -126,6 +127,7 @@ client.on('message', function (msg) {
             });
         }
         else if (command == 'restart') {
+            msg.channel.send('Restarting...');
             exec('sudo systemctl restart compilerserver', function (err, stdout, stderr) {
                 msg.channel.send('標準出力');
                 if (stdout)

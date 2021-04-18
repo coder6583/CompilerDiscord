@@ -42,9 +42,6 @@ client.on('message', (msg: any) => {
   }
   // return;
   console.log(msg.content);
-//   if (msg.content === 'ping') {
-//     msg.reply('Pong!');
-//   }
   let line = msg.content;
   // msg.channel.send(line);
   if(msg.author.bot)
@@ -57,6 +54,7 @@ client.on('message', (msg: any) => {
     let command = line.slice(1);
     if(command == 'start')
     {
+      msg.channel.send('Starting...');
       exec('sudo systemctl start compilerserver', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
         msg.channel.send('標準出力');
         if(stdout)
@@ -80,6 +78,7 @@ client.on('message', (msg: any) => {
     }
     else if(command == 'startadmin')
     {
+      msg.channel.send('Starting admin...');
       exec('sudo systemctl start admincompilerserver', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
         msg.channel.send('標準出力');
         if(stdout)
@@ -103,6 +102,7 @@ client.on('message', (msg: any) => {
     }
     else if(command == 'stop')
     {
+      msg.channel.send('Stopping...');
       exec('sudo systemctl stop compilerserver', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
         msg.channel.send('標準出力');
         if(stdout)
@@ -118,6 +118,7 @@ client.on('message', (msg: any) => {
     }
     else if(command == 'stopadmin')
     {
+      msg.channel.send('Stopping admin...');
       exec('sudo systemctl stop admincompilerserver', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
         msg.channel.send('標準出力');
         if(stdout)
@@ -133,6 +134,7 @@ client.on('message', (msg: any) => {
     }
     else if(command == 'restart')
     {
+      msg.channel.send('Restarting...');
       exec('sudo systemctl restart compilerserver', (err: NodeJS.ErrnoException| null, stdout: any, stderr: any) => {
         msg.channel.send('標準出力');
         if(stdout)
@@ -245,7 +247,6 @@ client.on('message', (msg: any) => {
       }
     }
   }
-  
   else
   {
     let command = line;
